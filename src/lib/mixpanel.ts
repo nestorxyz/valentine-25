@@ -1,5 +1,9 @@
 import mixpanel from 'mixpanel-browser';
 
-mixpanel.init(import.meta.env.VITE_MIXPANEL_TOKEN);
+const mixpanelToken = import.meta.env.VITE_MIXPANEL_TOKEN || 'valentine';
+
+console.log('mixpanelToken', mixpanelToken);
+
+mixpanel.init(mixpanelToken);
 
 export default mixpanel;
