@@ -7,9 +7,10 @@ function App() {
   const jsConfetti = new JSConfetti();
   const [randomValor, setRandomValor] = useState({});
 
-  const [agrandar, setAgrandar] = useState(45);
-
   const [valueSi, setValueSi] = useState(false);
+
+  const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0 });
+  const [position, setPosition] = useState('relative');
 
   let random = [
     {
@@ -67,15 +68,27 @@ function App() {
       description: 'No te arrepentirás.',
       img: 'https://media.tenor.com/I7KdFaMzUq4AAAAi/peach-goma.gif',
     },
+    {
+      id: 11,
+      description: 'Ya pon que siiii',
+      img: 'https://media.tenor.com/_4KFcz84OGMAAAAj/cute.gif',
+    },
+    {
+      id: 12,
+      description: 'Dale, no seas mala',
+      img: 'https://media.tenor.com/Az64YfoL7JcAAAAj/rawr.gif',
+    },
   ];
 
   const randomResponse = () => {
     mixpanel.track('Boton No Clickeado');
 
-    let index = Math.floor(Math.random() * 11);
-    if (agrandar <= 500) {
-      setAgrandar(agrandar + 10);
-    }
+    let randX = Math.random() * 70;
+    let randY = Math.random() * 80;
+
+    let index = Math.floor(Math.random() * random.length);
+    setPosition('absolute');
+    setButtonPosition({ top: randY, left: randX });
     setRandomValor(random[index]);
   };
 
@@ -86,11 +99,11 @@ function App() {
   return (
     <main
       id="canvas"
-      className="fondo w-screen h-screen bg-no-repeat bg-cover flex items-center justify-center bg-center "
+      className="w-screen relative h-screen bg-no-repeat bg-cover flex items-center justify-center bg-center "
     >
       {!valueSi ? (
         <div className="p-5">
-          <h1 className="text-white font-bold text-5xl text-center">
+          <h1 className="font-bold text-5xl text-center">
             ¿Quieres ser mi San Valentin?
           </h1>
           <img
@@ -115,14 +128,18 @@ function App() {
                   confettiNumber: 200,
                 });
               }}
-              className={`bg-green-500 text-white font-bold p-2 rounded-md text-xl h-${agrandar}`}
-              style={{ height: agrandar }}
+              className={`bg-green-500 text-white font-bold p-2 rounded-md text-xl`}
             >
               Si
             </button>
             <button
-              className="bg-red-500 text-white font-bold p-2 rounded-md text-xl"
-              onClick={randomResponse}
+              className="bg-red-500 text-white min-w-48 font-bold p-2 rounded-md text-xl"
+              onMouseOver={randomResponse}
+              style={{
+                position: position,
+                top: `${buttonPosition.top}%`,
+                left: `${buttonPosition.left}%`,
+              }}
             >
               {Object.keys(randomValor).length === 0
                 ? 'No'
