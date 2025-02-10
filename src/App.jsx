@@ -157,7 +157,7 @@ function App() {
         </div>
       ) : (
         <div className="flex justify-center items-center flex-col space-y-10">
-          <h1 className="text-4xl text-white font-bold">
+          <h1 className="text-4xl font-bold">
             Sabia que dirias que si ❤️!
           </h1>
           <img
