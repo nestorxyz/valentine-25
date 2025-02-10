@@ -7,7 +7,6 @@ function App() {
   const jsConfetti = new JSConfetti();
   const [randomValor, setRandomValor] = useState({});
 
-  const [imagenCargada, setImagenCargada] = useState(false);
   const [agrandar, setAgrandar] = useState(45);
 
   const [valueSi, setValueSi] = useState(false);
@@ -26,7 +25,7 @@ function App() {
     {
       id: 2,
       description: 'Vamos, atrévete a decir que sí.',
-      img: 'https://www.gifmaniacos.es/wp-content/uploads/2019/05/gatitos-kawaii-gifmaniacos.es-19.gif',
+      img: 'https://media.tenor.com/DTmYqda3ZokAAAAi/peachandgoma.gif',
     },
     {
       id: 3,
@@ -74,15 +73,10 @@ function App() {
     mixpanel.track('Boton No Clickeado');
 
     let index = Math.floor(Math.random() * 11);
-    console.log(random[index]);
     if (agrandar <= 500) {
       setAgrandar(agrandar + 10);
     }
     setRandomValor(random[index]);
-  };
-
-  const handleImageLoad = () => {
-    setImagenCargada(true);
   };
 
   useEffect(() => {
@@ -106,9 +100,7 @@ function App() {
                 : randomValor.img
             }
             alt="San Valentin"
-            className="mx-auto"
-            width={400}
-            height={400}
+            className="mx-auto object-cover h-[200px]"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-5 items-center">
             <button
@@ -120,7 +112,7 @@ function App() {
                 jsConfetti.addConfetti({
                   emojis: ['😍', '🥰', '❤️', '😘'],
                   emojiSize: 70,
-                  confettiNumber: 80,
+                  confettiNumber: 200,
                 });
               }}
               className={`bg-green-500 text-white font-bold p-2 rounded-md text-xl h-${agrandar}`}
@@ -131,7 +123,6 @@ function App() {
             <button
               className="bg-red-500 text-white font-bold p-2 rounded-md text-xl"
               onClick={randomResponse}
-              disabled={imagenCargada} // Deshabilita el botón si la imagen no se ha cargado
             >
               {Object.keys(randomValor).length === 0
                 ? 'No'
